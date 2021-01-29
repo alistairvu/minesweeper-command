@@ -5,7 +5,7 @@ import {
   generateMines,
   generateOpen,
 } from "./startUtils"
-import { calculateOpen, handleSelect } from "./gameUtils"
+import { calculateOpen, handleSelect, openAll } from "./gameUtils"
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -16,20 +16,27 @@ const boardState = generateBoard()
 const openState = generateOpen()
 generateMines(boardState)
 
-let foundMine = false
-let opened = 0
+const flaggedSquares = []
+
+console.log(boardToDisplayStringArr(boardState, openState))
 
 const handleGame = () => {
   rl.question("Enter two values: ", (value: string) => {
     const [row, col] = value.split(" ").map((x) => parseInt(x.trim()))
-    handleSelect(boardState, openState, row, col, foundMine)
+
+    const foundMine = handleSelect(boardState, openState, row, col)
+
     const openStateStringArr = boardToDisplayStringArr(boardState, openState)
     console.log(openStateStringArr)
-    opened = calculateOpen(openState)
+    const opened = calculateOpen(openState)
+
     if (foundMine) {
       rl.close()
     } else if (opened === 90) {
       console.log("YOU WIN!")
+      openAll(openState)
+      console.log(boardToDisplayStringArr(boardState, openState))
+
       rl.close()
     } else {
       handleGame()

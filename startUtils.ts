@@ -85,6 +85,8 @@ export const boardToDisplayStringArr = (
       if (openRow[j]) {
         if (boardRow[j] === 0) {
           displayRow.push(".")
+        } else if (boardRow[j] === 9) {
+          displayRow.push("M")
         } else {
           displayRow.push(`${boardRow[j]}`)
         }

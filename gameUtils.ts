@@ -2,10 +2,8 @@ export const handleSelect = (
   gameBoard: number[][],
   openBoard: boolean[][],
   row: number,
-  col: number,
-  foundMine: boolean
-) => {
-  console.log({ row, col })
+  col: number
+): boolean => {
   const checkRow = 0 <= row && row <= 9
   const checkCol = 0 <= col && col <= 9
   const checkIndex = checkRow && checkCol
@@ -13,7 +11,10 @@ export const handleSelect = (
   if (checkIndex) {
     if (gameBoard[row][col] === 9) {
       console.log("GAME OVER!")
-      foundMine = true
+
+      openAll(openBoard)
+
+      return true
     }
 
     if (gameBoard[row][col] !== 0) {
@@ -28,7 +29,7 @@ export const handleSelect = (
           squareCol <= 9 &&
           openBoard[row][squareCol] === false
         ) {
-          handleSelect(gameBoard, openBoard, row, squareCol, foundMine)
+          handleSelect(gameBoard, openBoard, row, squareCol)
         }
       }
 
@@ -40,18 +41,14 @@ export const handleSelect = (
               squareCol <= 9 &&
               openBoard[squareRow][squareCol] === false
             ) {
-              handleSelect(
-                gameBoard,
-                openBoard,
-                squareRow,
-                squareCol,
-                foundMine
-              )
+              handleSelect(gameBoard, openBoard, squareRow, squareCol)
             }
           }
         }
       }
     }
+
+    return false
   }
 }
 
@@ -61,4 +58,12 @@ export const calculateOpen = (open: boolean[][]) => {
   open.forEach((x) => (sum += x.reduce((x, y) => (y ? x + 1 : x), 0)))
 
   return sum
+}
+
+export const openAll = (openBoard: boolean[][]) => {
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+      openBoard[i][j] = true
+    }
+  }
 }

@@ -16,8 +16,6 @@ const boardState = generateBoard()
 const openState = generateOpen()
 generateMines(boardState)
 
-const flaggedSquares = []
-
 console.log(boardToDisplayStringArr(boardState, openState))
 
 const handleGame = () => {

@@ -91,7 +91,7 @@ export const boardToDisplayStringArr = (
           displayRow.push(`${boardRow[j]}`)
         }
       } else {
-        displayRow.push("!")
+        displayRow.push("_")
       }
     }
 

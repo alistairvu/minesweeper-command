@@ -1,9 +1,13 @@
 {
-  "name": "minesweeper-algos",
+  "name": "minesweeper-typescript",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "minesweeper.ts",
   "license": "MIT",
   "dependencies": {
-    "@types/node": "^14.14.22"
+    "@types/node": "^14.14.22",
+    "typescript": "^4.1.3"
+  },
+  "scripts": {
+    "play": "ts-node ."
   }
 }

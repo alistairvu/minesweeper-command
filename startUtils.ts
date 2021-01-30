@@ -73,8 +73,17 @@ export const generateMines = (board: Array<Array<number>>): void => {
 export const boardToDisplayStringArr = (
   board: Array<Array<number>>,
   open: Array<Array<boolean>>
-): Array<string> => {
+): string => {
   const displayBoard: Array<string> = []
+
+  const firstRow = []
+  for (let i = 0; i < 10; i++) {
+    firstRow.push(`${i}`)
+  }
+
+  displayBoard.push(`  |${firstRow.join(" ")}`)
+
+  displayBoard.push("__|____________________")
 
   for (let i = 0; i < 10; i++) {
     const boardRow = board[i]
@@ -84,9 +93,9 @@ export const boardToDisplayStringArr = (
     for (let j = 0; j < 10; j++) {
       if (openRow[j]) {
         if (boardRow[j] === 0) {
-          displayRow.push(".")
+          displayRow.push(" ")
         } else if (boardRow[j] === 9) {
-          displayRow.push("M")
+          displayRow.push(".")
         } else {
           displayRow.push(`${boardRow[j]}`)
         }
@@ -95,8 +104,8 @@ export const boardToDisplayStringArr = (
       }
     }
 
-    displayBoard.push(displayRow.join(" "))
+    displayBoard.push(`${i} |${displayRow.join(" ")}`)
   }
 
-  return displayBoard
+  return displayBoard.join("\n")
 }
